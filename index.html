@@ -2,24 +2,391 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My GitHub Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crisp Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://cdn.discordapp.com/attachments/1385282079914332230/1390637967080554547/channels4_profile.jpg?ex=6868fc08&is=6867aa88&hm=58b431e9adfa63cd43c38667bc82c2050ea73f4dfb579a099be5a2a10488bf1a&">
   <style>
+    :root {
+      --main-bg1: #232526;
+      --main-bg2: #414345;
+      --accent: #5865f2;
+      --text: #fff;
+      --subtext: #b0b3b8;
+      --radius: 18px;
+      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(120deg, #0f2027 0%, #232526 50%, #2c5364 100%);
+      background-size: 200% 200%;
+      transition: background-position 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+    #falling-dots {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      display: block;
+    }
+    header {
+      margin-top: 48px;
       text-align: center;
-      padding-top: 100px;
-      background-color: #f0f0f0;
+      animation: fadeInDown 1s;
+      z-index: 2;
+      position: relative;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .welcome-message {
+      font-size: 2.8rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #5865f2, #00c3ff, #2c5364, #fff, #5865f2);
+      background-size: 300% auto;
+      color: #fff;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      letter-spacing: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: .15em solid #fff;
+      width: 0;
+      opacity: 1;
+      filter: drop-shadow(0 0 12px #5865f2) drop-shadow(0 0 24px #00c3ff);
+      animation:
+        typing 2.2s steps(25, end) 0.2s forwards,
+        blink-caret 0.7s step-end infinite,
+        welcomeGradient 3s linear infinite 2.4s;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 22ch }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #fff; }
+    }
+    @keyframes welcomeGradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      margin-bottom: 18px;
+      transition: transform 0.3s;
+      background: #232526;
+    }
+    .profile-img:hover {
+      transform: scale(1.05) rotate(-2deg);
     }
     h1 {
-      color: #333;
+      display: none; /* Hide the old h1 */
     }
-    p {
-      color: #555;
+    .sections {
+      width: 100%;
+      max-width: 1400px;
+      margin: 40px auto 0 auto;
+      display: flex;
+      flex-direction: row;
+      gap: 36px;
+      z-index: 2;
+      position: relative;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(35,39,47,0.92);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px 24px;
+      gap: 24px;
+      min-width: 260px;
+      max-width: 320px;
+      flex: 1 1 260px;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s forwards;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .section:hover {
+      transform: translateY(0) scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+    .section .about {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .section .about-title {
+      font-size: 1.35rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .section .about-desc {
+      color: var(--subtext);
+      font-size: 1.08rem;
+      margin-bottom: 18px;
+      line-height: 1.6;
+      padding: 0 10px;
+    }
+    .section .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+      box-shadow: 0 2px 8px 0 rgba(88,101,242,0.12);
+      display: inline-block;
+      width: fit-content;
+    }
+    .section.youtube .btn { background: #ff0000; }
+    .section.discord .btn { background: #5865f2; }
+    .section.instagram .btn { background: #e1306c; }
+    .section.facebook .btn { background: #1877f3; }
+    .section .btn:hover {
+      background: #fff;
+      color: var(--accent);
+      transform: scale(1.07);
+    }
+    .section.youtube .btn:hover { color: #ff0000; }
+    .section.discord .btn:hover { color: #5865f2; }
+    .section.instagram .btn:hover { color: #e1306c; }
+    .section.facebook .btn:hover { color: #1877f3; }
+    .section .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+    }
+    .section .logo i {
+      font-size: 7rem;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.18));
+      transition: transform 0.3s;
+    }
+    .section.youtube .logo i { color: #ff0000; }
+    .section.discord .logo i { color: #5865f2; }
+    .section.instagram .logo i { color: #e1306c; }
+    .section.facebook .logo i { color: #1877f3; }
+    .section .logo i:hover {
+      transform: scale(1.12) rotate(-4deg);
+    }
+    .section.youtube { animation-delay: 0.2s; }
+    .section.discord { animation-delay: 0.5s; }
+    .section.instagram { animation-delay: 0.8s; }
+    .section.facebook { animation-delay: 1.1s; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    footer {
+      margin-top: 48px;
+      padding: 24px 0 12px 0;
+      color: var(--subtext);
+      font-size: 0.98rem;
+      text-align: center;
+      letter-spacing: 0.2px;
+      opacity: 0.7;
+      z-index: 2;
+      position: relative;
+    }
+    @media (max-width: 600px) {
+      .welcome-message {
+        font-size: 1.3rem;
+      }
+      .profile-img { width: 90px; height: 90px;}
     }
   </style>
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/6e2e6e6e6e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>This is my first website hosted on GitHub Pages!</p>
+  <canvas id="falling-dots"></canvas>
+  <header>
+    <div class="welcome-message">Welcome to Crisp Network</div>
+    <img class="profile-img" src="𝐏𝐡𝐨𝐭𝐨 𝐥𝐢𝐧𝐤" alt="My Profile">
+    <h1>welcome to my network </h1>
+  </header>
+
+  <div class="sections">
+    <section class="section youtube">
+      <div class="logo">
+        <i class="fab fa-youtube"></i>
+      </div>
+      <div class="about">
+        <div class="about-title">YouTube</div>
+        <div class="about-desc">
+          coming soon...<br>
+          coming soon...<br>
+          coming soon...
+        </div>
+        <a class="btn" href="𝐘𝐨𝐮𝐭𝐮𝐛𝐞 𝐥𝐢𝐧𝐤" target="_blank">Subscribe</a>
+      </div>
+    </section>
+
+    <section class="section discord">
+      <div class="logo">
+        <i class="fab fa-discord"></i>
+      </div>
+      <div class="about">
+        <div class="about-title">Discord</div>
+        <div class="about-desc">
+          coming soon...<br>
+          coming soon...<br>
+          coming soon...
+        </div>
+        <a class="btn" href="𝐝𝐢𝐬𝐜𝐨𝐫𝐝 𝐥𝐢𝐧𝐤" target="_blank">Join Now</a>
+      </div>
+    </section>
+
+    <section class="section instagram">
+      <div class="logo">
+        <i class="fab fa-instagram"></i>
+      </div>
+      <div class="about">
+        <div class="about-title">Instagram</div>
+        <div class="about-desc">
+          coming soon...<br>
+          coming soon...<br>
+          coming soon...
+        </div>
+        <a class="btn" href="𝐢𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦 𝐥𝐢𝐧𝐤" target="_blank">Follow</a>
+      </div>
+    </section>
+
+    <section class="section facebook">
+      <div class="logo">
+        <i class="fab fa-facebook"></i>
+      </div>
+      <div class="about">
+        <div class="about-title">Facebook</div>
+        <div class="about-desc">
+          coming soon...<br>
+          coming soon...<br>
+          coming soon...
+        </div>
+        <a class="btn" href="𝐟𝐚𝐜𝐞𝐛𝐨𝐨𝐤 𝐥𝐢𝐧𝐤" target="_blank">Like Page</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Crisp Network
+  </footer>
+  <!-- Font Awesome CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+  <script>
+    // Animate sections in order
+    document.addEventListener("DOMContentLoaded", function() {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((section, i) => {
+        setTimeout(() => {
+          section.style.opacity = 1;
+          section.style.transform = "translateY(0)";
+        }, 300 + i * 300);
+      });
+    });
+
+    // Parallax background effect
+    document.addEventListener('mousemove', function(e) {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      document.body.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
+    });
+
+    // Falling Black Dots Effect
+    (function() {
+      const canvas = document.getElementById('falling-dots');
+      const ctx = canvas.getContext('2d');
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let dots = [];
+      const DOTS_COUNT = 60;
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function createDot() {
+        return {
+          x: Math.random() * width,
+          y: Math.random() * -height,
+          r: Math.random() * 3 + 2,
+          speed: Math.random() * 1.5 + 0.5,
+          alpha: Math.random() * 0.3 + 0.4
+        };
+      }
+
+      function initDots() {
+        dots = [];
+        for (let i = 0; i < DOTS_COUNT; i++) {
+          dots.push(createDot());
+        }
+      }
+
+      function drawDots() {
+        ctx.clearRect(0, 0, width, height);
+        dots.forEach(dot => {
+          ctx.beginPath();
+          ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 0, 0, ${dot.alpha})`;
+          ctx.fill();
+          dot.y += dot.speed;
+          if (dot.y > height) {
+            dot.y = Math.random() * -height;
+            dot.x = Math.random() * width;
+          }
+        });
+        requestAnimationFrame(drawDots);
+      }
+
+      initDots();
+      drawDots();
+    })();
+  </script>
 </body>
 </html>
